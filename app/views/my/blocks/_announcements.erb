@@ -1,0 +1,26 @@
+<div id="announcements">
+    <% if !Announcement.where('announcement_date = ?', Date.today).present? %>
+        <h2 class="announcemet_text mb-4">No Announcements Today</h2>
+    <% else %>
+        <h2 class="announcemet_text mb-4">Announcement</h2>
+    <% end %>
+  <% Announcement.where('announcement_date = ?', Date.today).each do |announcement| %>
+    <div class="announcement">
+      <h3 class="announcement-title"><%= announcement.title %></h3>
+      <p class="announcement-text"><%= announcement.description %></p>
+      <% if User.current.admin? %>
+        <%= link_to 'Edit', edit_announcement_path(announcement), class: 'icon icon-edit edit-announcement' %>
+        <%= link_to 'Delete', announcement_path(announcement), method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon icon-del edit-announcement' %>
+      <% end %>
+    </div>
+    <hr>
+  <% end %>
+  <% if User.current.admin? %>
+  <%= link_to 'Create Announcement',new_announcement_path, class: 'icon icon-add'%>
+<% end %>
+</div>
+
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'main-page', plugin: 'redmineflux_announcement' %>
+<% end %>
+<%= javascript_include_tag 'index', plugin: 'redmineflux_announcement' %>

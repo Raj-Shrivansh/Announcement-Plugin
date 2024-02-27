@@ -1,0 +1,9 @@
+<div class="form-div">
+<h2 class="text-center">Edit Announcement</h2>
+<%= render 'form', announcement: @announcement %>
+<%= link_to 'Back', {controller: '/my', action: :page},class:"float-right btn btn-warning text-white"%>
+</div>
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'bootstrap.min', plugin: 'redmineflux_announcement' %>
+    <%= stylesheet_link_tag 'style', plugin: 'redmineflux_announcement' %>
+<% end %>

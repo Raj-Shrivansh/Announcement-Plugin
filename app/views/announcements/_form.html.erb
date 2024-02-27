@@ -1,0 +1,33 @@
+<%= form_for(@announcement, url: { action: @announcement.new_record? ? "create" : "update", id: @announcement.id },html: {class: "announcement-form"}) do |f| %>
+  <% if @announcement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2>
+      <ul>
+      <% @announcement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :"Announcement Title :" %><br>
+    <%= f.text_field :title,class:"form-control",required: true%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :"Announcement Description :" %><br>
+    <%= f.text_area :description,class:"form-control",required: true%>
+  </div>
+
+    <div class="form-group">
+      <%= f.label :"Announcement Date :" %>
+      <%= f.date_field :announcement_date,class:"form-control"%>
+    </div><br>
+    <%= f.submit @announcement.new_record? ? 'Create' : 'Update'%>
+<% end %>
+
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'bootstrap.min', plugin: 'redmineflux_announcement' %>
+    <%= stylesheet_link_tag 'style', plugin: 'redmineflux_announcement' %>
+<% end %>
